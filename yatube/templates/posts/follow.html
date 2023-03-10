@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% block title %}Избранные авторы{% endblock %}
+{% block content %}
+  <div class="container py-5">
+    {% include "includes/switcher.html" %}
+    {%if not page_obj%}
+    <h5>Подпишитесь на интересующих вас авторов, чтобы увидеть их посты</h5>
+    <hr>
+    {%endif%}
+    <div class="container py-5">      
+        <h1>Лента</h1> 
+        <hr>
+        <article> 
+          {% for post in page_obj %}
+          <div class="d-flex justify-content-center py-3">
+            <ul class="nav nav-pills">
+              <li class ='nav-item'>
+            
+                {% if post.group and view_name != 'posts:group_list'%}
+                  <a href="{% url "posts:group_list"  post.group.slug %}" class="btn btn-outline-secondary btn-sm">
+                    Группа:{{post.group.title}}
+                </a>  
+              </li>
+            </ul>
+              </div>  
+              {% endif %}
+          <ul>
+                <li>
+                  Автор: <a href="{% url "posts:profile"  post.author %}" > {{ post.author.get_full_name }}</a>
+                </li>
+                <li >
+                  Дата публикации: {{ post.pub_date|date:"d E Y" }}
+                </li>
+              </ul>
+        {% thumbnail post.image "1920x1080" crop="center" upscale=True as im %}
+          <img class="card-img my-3" src="{{ im.url }}">
+        {% endthumbnail %}
+        <p>{{ post.text }}</p>
+        <a href='{% url 'posts:post_detail' post.id %}' class="btn btn-outline-secondary btn-sm">Подробная информаиця</a>
+        {% if not forloop.last %}<hr>{% endif %} 
+        {% endfor %}
+        {% include 'includes/paginator.html' %}
+        </article>   
+      </div> 
+    {% endblock %} 
+    
+    

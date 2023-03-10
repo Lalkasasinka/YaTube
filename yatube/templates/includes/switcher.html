@@ -1,0 +1,27 @@
+
+{% with request.resolver_match.view_name as view_name %}
+{% if user.is_authenticated %}
+  <div class="row my-3 d-flex justify-content-center py-3">
+    <ul class="nav justify-content-center">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+        <a 
+          class="nav-link {% if view_name == 'posts:index' %}active{% endif %}"
+          href="{% url 'posts:index' %}"
+        >
+        <class style = "color:black">Все авторы
+        </a>
+      </li>
+      <li class="nav-item">
+        <a 
+        class="nav-link {% if view_name == 'posts:follow_index' %}active{% endif %}"
+           href="{% url 'posts:follow_index' %}"
+        >
+        <class style = "color:black">Избранные авторы
+        </a>
+      </li>
+    </ul>
+    </ul>
+  </div>
+{% endif %}
+{%endwith%}

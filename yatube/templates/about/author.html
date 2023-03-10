@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static%}
+
+{% block title %}Об авторе проекта{% endblock %}
+{% block content %}
+  <div class="container py-5">
+  <div>
+    <h1 class="display-2">Hello, world!</h1>
+    <p class="lead">Меня зовут Иван Синицын, я автор проекта <span style="color:red">Ya</span>Tube</p>
+  
+    <hr class="my-4">
+    <p>Ссылки на соцсети:</p>
+    <p class="lead">
+      <a class="navbar-brand" href="https://t.me/sSinichka">
+        <img src="{% static 'img/tg.png' %}" width="50" height="50" class="d-inline-block align-top" alt="">
+      </a>
+      <a class="navbar-brand" href="https://github.com/Lalkasasinka">
+        <img src="{% static 'img/github.png' %}" width="50" height="50" class="d-inline-block align-top" alt="">
+      </a>
+      <a class="navbar-brand" href="https://vk.com/iv.sinitsyn1">
+        <img src="{% static 'img/vk.png' %}" width="50" height="50" class="d-inline-block align-top" alt="">
+      </a>
+    </p>
+  </div>
+</div>
+{% endblock %}

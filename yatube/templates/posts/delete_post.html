@@ -1,0 +1,25 @@
+<button type="button " class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Delete{{post.pk}}">
+  Удалить пост
+</button>
+
+<!-- Модальное окно -->
+<div class="modal fade" id="Delete{{post.pk}}" tabindex="-1" aria-labelledby="Delete{{post.pk}}" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centeredч">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="Delete{{post.pk}}Label">Удаление поста</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+      </div>
+      <div class="modal-body">
+        Вы уверены, что хотите удалить пост {{post}}?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+        <form action="{% url 'posts:delete_post' pk=post.pk %}" method="POST">
+          {% csrf_token %}
+          <button class="btn btn-danger">Удалить</button>
+        </form> 
+      </div>
+    </div>
+  </div>
+</div>
