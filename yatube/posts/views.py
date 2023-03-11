@@ -1,19 +1,16 @@
 from django.shortcuts import get_object_or_404, redirect
 from django.views import View
-from .forms import PostForm, CommentForm
 from .models import Post, Group, User, Follow
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (ListView, DetailView,
                                   CreateView, DeleteView,
                                   UpdateView, View)
 from django.utils.decorators import method_decorator
+from .forms import PostForm, CommentForm
 from .utils import DataMixin
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse, reverse_lazy
 
-
-# Обязательно передалю последние две функции в классы, горят сроки,
-# пробовал, но тесты не проходят, хоть и вроде все работает.
 
 
 class PostsHome(DataMixin, ListView):
@@ -175,12 +172,11 @@ class FollowView(LoginRequiredMixin, DataMixin, ListView):
 class AddFollowView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         user = request.user
-        author = User.objects.get(username=self.kwargs['username'])
+        author = get_object_or_404(User, username=self.kwargs['username'])
         if user == author:
             return redirect('posts:profile', username=kwargs['username'])
         follow = Follow.objects.filter(user=user, author=author)
-        if not follow.exists():
-            Follow.objects.create(user=user, author=author)
+        Follow.objects.get_or_create(user=user, author=author)
         return redirect('posts:profile', username=kwargs['username'])
 
 

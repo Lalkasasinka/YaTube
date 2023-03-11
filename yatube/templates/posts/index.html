@@ -5,6 +5,8 @@
 {% endblock %}
 
 {% block content %}
+{% load cache %}
+{% cache 20 sidebar %}
 <!-- класс py-5 создает отступы сверху и снизу блока -->
 <div class="container py-5">    
 {% include 'includes/switcher.html' %}   
@@ -42,7 +44,8 @@
         <a href='{% url 'posts:post_detail' post.id %}' class="btn btn-outline-secondary btn-sm">Подробная информаиця</a> 
         {% if not forloop.last %}<hr>{% endif %} 
         {% endfor %}
+        {% endcache %}
     {% include 'includes/paginator.html' %}
     </article>   
-  </div> 
+  </div>
 {% endblock %} 

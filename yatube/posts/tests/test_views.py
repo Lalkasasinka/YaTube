@@ -171,6 +171,22 @@ class PostPagesTests(TestCase):
         form_field = response.context['page_obj']
         self.assertNotIn(Post.objects.get(group=self.post.group), form_field)
 
+    def test_cache_index_page(self):
+        """Проверка работы кеша"""
+        post = Post.objects.create(
+            text='Пост под кеш',
+            author=self.user)
+        content_add = self.authorized_client.get(
+            reverse('posts:index')).content
+        post.delete()
+        content_delete = self.authorized_client.get(
+            reverse('posts:index')).content
+        self.assertEqual(content_add, content_delete)
+        cache.clear()
+        content_cache_clear = self.authorized_client.get(
+            reverse('posts:index')).content
+        self.assertNotEqual(content_add, content_cache_clear)
+
 
 class PaginatorViewsTest(DataMixin, TestCase):
     @classmethod
