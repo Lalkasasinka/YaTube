@@ -39,7 +39,7 @@ class StaticURLTests(TestCase):
             '/create/': HTTPStatus.FOUND,
             f'/posts/{self.post.id}/': HTTPStatus.OK,
             f'/posts/{self.post.id}/edit/': HTTPStatus.FOUND,
-            f'/follow/': HTTPStatus.FOUND,
+            '/follow/': HTTPStatus.FOUND,
         }
         for url, response_code in field_urls_code.items():
             with self.subTest(url=url):
@@ -66,7 +66,7 @@ class StaticURLTests(TestCase):
             '/create/': HTTPStatus.OK,
             f'/posts/{self.post.id}/': HTTPStatus.OK,
             f'/posts/{self.post.id}/edit/': HTTPStatus.FOUND,
-            f'/follow/': HTTPStatus.OK,
+            '/follow/': HTTPStatus.OK,
         }
         for url, response_code in field_urls_code.items():
             with self.subTest(url=url):
@@ -92,7 +92,7 @@ class StaticURLTests(TestCase):
             '/create/': HTTPStatus.OK,
             f'/posts/{self.post.id}/': HTTPStatus.OK,
             f'/posts/{self.post.id}/edit/': HTTPStatus.OK,
-            f'/follow/': HTTPStatus.OK,
+            '/follow/': HTTPStatus.OK,
         }
         for url, response_code in field_urls_code.items():
             with self.subTest(url=url):
@@ -108,7 +108,7 @@ class StaticURLTests(TestCase):
             f'/profile/{self.user_author}/': 'posts/profile.html',
             '/create/': 'posts/create_post.html',
             f'/posts/{self.post.id}/edit/': 'posts/create_post.html',
-            f'/follow/': 'posts/follow.html'
+            '/follow/': 'posts/follow.html'
         }
         for address, template in templates_url_names.items():
             with self.subTest(address=address):
