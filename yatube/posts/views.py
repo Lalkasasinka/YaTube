@@ -12,7 +12,6 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse, reverse_lazy
 
 
-
 class PostsHome(DataMixin, ListView):
     model = Post
     template_name = 'posts/index.html'
@@ -175,8 +174,8 @@ class AddFollowView(LoginRequiredMixin, View):
         author = get_object_or_404(User, username=self.kwargs['username'])
         if user == author:
             return redirect('posts:profile', username=kwargs['username'])
-        follow = Follow.objects.filter(user=user, author=author)
         Follow.objects.get_or_create(user=user, author=author)
+
         return redirect('posts:profile', username=kwargs['username'])
 
 
